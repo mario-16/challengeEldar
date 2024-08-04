@@ -78,21 +78,16 @@ public class Tarjeta {
         LocalDate diaActual = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
         boolean estaHabilitada = false;
-        try {
+        //try {
             YearMonth mesAnio = YearMonth.parse(fechaVencimiento, formatter);
             LocalDate fechaCaducidad = mesAnio.atEndOfMonth();
             estaHabilitada = diaActual.isBefore(fechaCaducidad);
             System.out.println(fechaCaducidad);
 
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             System.out.println(e.getMessage());
-        }
+        }*/
         return estaHabilitada;
-    }
-
-
-    public int compararTarjetas(Tarjeta tarjeta){
-        return 0;
     }
 
     @Override
@@ -102,27 +97,5 @@ public class Tarjeta {
         Tarjeta tarjeta = (Tarjeta) o;
         return marca == tarjeta.marca && nroTarjeta.equals(tarjeta.nroTarjeta);
     }
-
-    public void informarTasa(String marca, int importe) throws Exception {
-        LocalDate diaActual = LocalDate.now();
-        switch (marca) {
-            case "VISA":
-                String[] fechaPartida = fechaVencimiento.split("/");
-                System.out.println(importe * (Integer.parseInt(fechaPartida[1]) / Integer.parseInt(fechaPartida[0])));
-                break;
-            case "NARA":
-                int dayOfMonth = diaActual.getDayOfMonth();
-                System.out.println(importe * (dayOfMonth * 0.5));
-                break;
-            case "AMEX":
-                System.out.println(importe * (diaActual.getMonthValue() * 0.1));
-                break;
-//            default:
-//                System.out.println("La marca enviada no existe");
-        }
-
-    }
-
-
 
 }
